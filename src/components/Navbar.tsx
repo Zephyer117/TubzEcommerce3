@@ -39,16 +39,16 @@ const Navbar = () => {
       link: "/shop",
     },
     {
-      title: "Cart",
-      link: "/cart",
+      title: "AboutUs",
+      link: "/about",
     },
     {
-      title: "Profile",
-      link: "/profile",
+      title: "ContactUS",
+      link: "/contact",
     },
     // Exclude "Studio" item based on user's IP address
     
-    ...(userIp === 'localhost:3000'
+    ...(userIp !== 'localhost:3000'
       ? []
       : [
           {
