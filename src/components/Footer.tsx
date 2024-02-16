@@ -10,10 +10,13 @@ const Footer = () => {
           <span className="text-md mr-[1px] mt-[2px] md:mt-0 text-center hidden md:inline-flex">
             <AiOutlineCopyright />
           </span>
-          Copyright 2022 | Orebi shopping | All Rights Reserved |
-          <a href="https://reactbd.com/" target="_blank" rel="noreferrer">
-            <span className="ml-1 font-medium group-hover:text-primeColor">
-              NONE
+          Copyright 2022 | TUBz Ecommerce | All Rights Reserved |
+          <a href="/" target="_blank" rel="noreferrer">
+            <span
+              className="ml-1 font-bold text-xl
+             group-hover:text-primeColor"
+            >
+              TUBz Ecommerce
             </span>
           </a>
         </p>

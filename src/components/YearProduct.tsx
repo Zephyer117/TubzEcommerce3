@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const YearProduct = () => {
   return (
-    <div className="w-full bg-[#f3f3f3]">
+    <div className="w-full bg-[#f3f3f3] h-[22em]">
       <Container className="md:bg-transparent relative py-0 mb-10">
         <Image
           src={productOfTheYear}

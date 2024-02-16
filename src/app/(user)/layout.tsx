@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 import Layout from "@/components/Layout";
 
 export const metadata: Metadata = {
-  title: "Orebi Shopping Store || Best place to shop",
+  title: "TUBzECommerce",
   description: "Your trusted online shopping store",
 };
 

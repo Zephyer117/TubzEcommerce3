@@ -14,20 +14,43 @@ const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const { data: session } = useSession();
   const [userIp, setUserIp] = useState(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
-    async function fetchIp() {
+    const fetchIp = async () => {
       try {
-        const response = await fetch('/api/getip');
+        const response = await fetch("/api/getip");
         const data = await response.json();
-        console.log('API Response:', data); // Log the entire response
+        console.log("API Response:", data);
         setUserIp(data.ip);
       } catch (error) {
-        console.error('Error fetching IP:', error);
+        console.error("Error fetching IP:", error);
       }
-    }
+    };
+
     fetchIp();
   }, []);
+
+  useEffect(() => {
+    const closeMenuOnClickOutside = (event) => {
+      // Check if the clicked element is not inside the dropdown menu
+      if (isMenuOpen && !event.target.closest(".absolute.top-16.right-0")) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    // Attach the event listener when the component mounts
+    document.addEventListener("click", closeMenuOnClickOutside);
+
+    // Remove the event listener when the component unmounts
+    return () => {
+      document.removeEventListener("click", closeMenuOnClickOutside);
+    };
+  }, [isMenuOpen]);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   const navBarList = [
     {
@@ -46,9 +69,7 @@ const Navbar = () => {
       title: "ContactUS",
       link: "/contact",
     },
-    // Exclude "Studio" item based on user's IP address
-    
-    ...(userIp !== 'localhost:3000'
+    ...(userIp !== "localhost:3000"
       ? []
       : [
           {
@@ -57,32 +78,14 @@ const Navbar = () => {
           },
         ]),
   ];
-console.log('Current user IP:', userIp);
-console.log('Condition result:', userIp === '127.0.0.1'); // Adjust the condition
 
   return (
     <div className="w-full h-20 bg-white border-b-[1px] border-b-gray-400 sticky top-0 z-50">
       <nav className="h-full max-w-screen-xl mx-auto px-4 xl:px-0 flex items-center justify-between gap-2">
         <Link href={"/"}>
-          <Image src={logo} alt="logo" className="w-20" />
+          <span className="font-semibold text-[2rem]">TUBZ</span>
         </Link>
-        <div className="relative w-full hidden lg:inline-flex lg:w-[600px] h-10 text-base text-primeColor border-[1px] border-black items-center gap-2 justify-between px-6 rounded-md">
-          <input
-            type="text"
-            placeholder="Search your products here"
-            className="flex-1 h-full outline-none bg-transparent placeholder:text-gray-600"
-            onChange={(e) => setSearchQuery(e.target.value)}
-            value={searchQuery}
-          />
-          {searchQuery ? (
-            <IoCloseOutline
-              onClick={() => setSearchQuery("")}
-              className="w-5 h-5 hover:text-red-500 duration-200 hover:cursor-pointer"
-            />
-          ) : (
-            <FaSearch className="w-5 h-5 hover:cursor-pointer" />
-          )}
-        </div>
+
         <div className="hidden md:inline-flex items-center gap-2">
           {navBarList.map((item) => (
             <Link
@@ -104,7 +107,33 @@ console.log('Condition result:', userIp === '127.0.0.1'); // Adjust the conditio
             </button>
           )}
         </div>
-        <HiMenuAlt2 className="inline-flex md:hidden cursor-pointer w-8 h-6" />
+        <HiMenuAlt2
+          onClick={toggleMenu}
+          className={`inline-flex md:hidden cursor-pointer w-8 h-6 ${
+            isMenuOpen ? "text-gray-950" : ""
+          }`}
+        />
+        {isMenuOpen && (
+          <div className="absolute top-16 right-0 bg-white border border-gray-400 p-4">
+            {navBarList.map((item) => (
+              <Link
+                key={item?.link}
+                href={item?.link}
+                className="block py-2 text-gray-600 hover:text-gray-950 hover:underline cursor-pointer"
+              >
+                {item?.title}
+              </Link>
+            ))}
+            {session?.user && (
+              <button
+                onClick={() => signOut()}
+                className="block py-2 text-gray-500 hover:text-red-600 hover:underline cursor-pointer"
+              >
+                Logout
+              </button>
+            )}
+          </div>
+        )}
       </nav>
     </div>
   );

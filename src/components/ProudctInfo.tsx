@@ -5,6 +5,7 @@ import Price from "./Price";
 import Image from "next/image";
 import messenger from "../assets/messenger.png";
 import whatsapp from "../assets/whatsapp.png";
+import { PortableText } from "@portabletext/react";
 
 interface Props {
   product: ProductProps;
@@ -33,15 +34,12 @@ const ProudctInfo = ({ product }: Props) => {
         {product?.description}
       </p>
       <p className="text-sm text-gray-500">Be the first to leave a review.</p>
-      <span className="w-[100px] bg-gray-600 hover:bg-black-100 duration-300 text-white text-lg rounded-md text-center">
-        Buy now
+      <span className="w-[100px] bg-gray-600 hover:bg-black-100 duration-100 transition hover:scale-110 text-white text-lg rounded-md text-center cursor-pointer">
+        Buy Now
       </span>
       <div className="flex">
-        <Link
-          href={"/"}
-          className="w-[200px] bg-green-600 hover:bg-gray-700 duration-300 text-white text-lg rounded-md text-center cursor-pointer mr-4 flex items-center"
-        >
-          <div className="flex items-center font-semibold hover:text-white hover:font-bold duration-200 transform bg-green-700 transition hover:scale-110 hover:bg-green-600 rounded-lg py-1 pl-1 lg:pl-2 lg:py-[15px] lg:pr-[50px]">
+        <Link href={"/"}>
+          <div className="w-[170px] h-[78px] text-white flex items-center font-bold hover:text-white hover:font-bold duration-200 transform bg-green-700 transition hover:scale-110 hover:bg-green-600 rounded-lg py-1 pl-1 lg:pl-2 lg:py-[15px] lg:pr-[50px] mr-5">
             <Image
               src={whatsapp}
               alt="/"
@@ -52,13 +50,10 @@ const ProudctInfo = ({ product }: Props) => {
             <span className="uppercase pl-1.5 ml-[5px]">Whatsapp</span>
           </div>
         </Link>
-        <Link
-          href={"/"}
-          className="w-[200px] lg:W-[150px] bg-primeColor hover:bg-gray-700 duration-300 text-blue-400 text-lg rounded-md text-center cursor-pointer mr-4 flex items-center"
-        >
-          <div className="flex items-center font-semibold hover:text-blue-300 hover:font-bold duration-200 transform bg-primeColor transition hover:scale-110 hover:bg-gray-700 rounded-lg py-1 lg:pr-[80px]">
+        <Link href={"https://m.me/MAngaTalker/"}>
+          <div className="w-[175px] text-white flex items-center font-bold  hover:font-bold duration-100 transform bg-primeColor transition hover:scale-110 hover:bg-gray-700 rounded-lg py-1 lg:pr-[80px]">
             <Image src={messenger} alt="/" width={70} height={70} />
-            <span className="uppercase">Messenger</span>
+            <span className="uppercase hover:text-blue-300">Messenger</span>
           </div>
         </Link>
       </div>
